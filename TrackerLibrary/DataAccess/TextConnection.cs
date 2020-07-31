@@ -7,7 +7,7 @@ using TrackerLibrary.Models;
 
 namespace TrackerLibrary.DataAccess
 {
-    public class FileConnection : IDataConnection
+    public class TextConnection : IDataConnection
     {
         public PrizeModel CreatePrize(PrizeModel model)
         {

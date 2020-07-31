@@ -19,7 +19,7 @@ namespace TrackerUI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            GlobalConfig.InitializeConnections(true, true);
+            GlobalConfig.InitializeConnections(ConnectionType.Sql);
 
             Application.Run(new CreatePrizeForm());
         }
