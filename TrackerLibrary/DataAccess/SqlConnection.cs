@@ -11,16 +11,18 @@ namespace TrackerLibrary.DataAccess
 {
     public class SqlConnection : IDataConnection
     {
+        private const string db = "TournamentTracker";
+
         public PersonModel CreatePerson(PersonModel model)
         {
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("TournamentTracker")))
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString(db)))
             {
                 DynamicParameters parameters = new DynamicParameters();
 
                 parameters.Add("@firstName", model.FirstName);
                 parameters.Add("@lastName", model.LastName);
                 parameters.Add("@emailAddress", model.EmailAddress);
-                parameters.Add("@cellphoneNumber", model.CellphoneNunber);
+                parameters.Add("@cellphoneNumber", model.CellphoneNumber);
                 parameters.Add("@id", 0, DbType.Int32, direction: ParameterDirection.Output);
 
                 connection.Execute("dbo.spPeople_Insert", parameters, commandType: CommandType.StoredProcedure);
@@ -33,7 +35,7 @@ namespace TrackerLibrary.DataAccess
 
         public PrizeModel CreatePrize(PrizeModel model)
         {
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("TournamentTracker")))
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString(db)))
             {
                 DynamicParameters parameters = new DynamicParameters();
 
@@ -49,6 +51,18 @@ namespace TrackerLibrary.DataAccess
 
                 return model;
             }
+        }
+
+        public List<PersonModel> GetPerson_All()
+        {
+            List<PersonModel> output;
+
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString(db)))
+            {
+                output = connection.Query<PersonModel>("dbo.spPeople_GetAll").ToList();
+            }
+            
+            return output;
         }
     }
 }

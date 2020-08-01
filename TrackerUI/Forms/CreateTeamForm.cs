@@ -14,14 +14,39 @@ namespace TrackerUI.Forms
 {
     public partial class CreateTeamForm : Form
     {
+        private BindingList<PersonModel> availableTeamMembers = new BindingList<PersonModel>(GlobalConfig.Connection.GetPerson_All());
+        private BindingList<PersonModel> selectedTeamMembers = new BindingList<PersonModel>();
+
         public CreateTeamForm()
         {
             InitializeComponent();
+
+            //CreateSampleData();
+
+            WireUpLists();
         }
 
-        private void createTournamentHeaderLabel_Click(object sender, EventArgs e)
+        private void CreateSampleData()
         {
+            availableTeamMembers.Add(new PersonModel { FirstName = "Peter", LastName = "Park"});
+            availableTeamMembers.Add(new PersonModel { FirstName = "Stephen", LastName = "Stranger"});
+            availableTeamMembers.Add(new PersonModel { FirstName = "Carol", LastName = "Danvers"});
 
+            selectedTeamMembers.Add(new PersonModel { FirstName = "Natasha", LastName = "Romanova" });
+            selectedTeamMembers.Add(new PersonModel { FirstName = "Tony", LastName = "Stark" });
+            selectedTeamMembers.Add(new PersonModel { FirstName = "Steve", LastName = "Rogers" });
+            selectedTeamMembers.Add(new PersonModel { FirstName = "Bruce", LastName = "Banner" });
+            selectedTeamMembers.Add(new PersonModel { FirstName = "Thor", LastName = "Odinson" });
+            selectedTeamMembers.Add(new PersonModel { FirstName = "Clint", LastName = "Barton" });
+        }
+
+        private void WireUpLists()
+        {
+            selectTeamMemberDropDown.DataSource = availableTeamMembers;
+            selectTeamMemberDropDown.DisplayMember = "FullName";
+
+            teamMembersListBox.DataSource = selectedTeamMembers;
+            teamMembersListBox.DisplayMember = "FullName";
         }
 
         private void createNewMemberButton_Click(object sender, EventArgs e)
@@ -33,9 +58,11 @@ namespace TrackerUI.Forms
                 model.FirstName = firstNameTextBox.Text;
                 model.LastName = lastNameTextBox.Text;
                 model.EmailAddress = emailTextBox.Text;
-                model.CellphoneNunber = cellphoneNumberTextbox.Text;
+                model.CellphoneNumber = cellphoneNumberTextbox.Text;
 
-                GlobalConfig.Connection.CreatePerson(model);
+                model = GlobalConfig.Connection.CreatePerson(model);
+
+                selectedTeamMembers.Add(model);
 
                 firstNameTextBox.Text = "";
                 lastNameTextBox.Text = "";
@@ -73,6 +100,32 @@ namespace TrackerUI.Forms
             }
 
             return output;
+        }
+
+        private void addMemberButton_Click(object sender, EventArgs e)
+        {
+            PersonModel person = (PersonModel) selectTeamMemberDropDown.SelectedItem;
+
+            if (person == null)
+            {
+                return;
+            }
+
+            availableTeamMembers.Remove(person);
+            selectedTeamMembers.Add(person);
+        }
+
+        private void removeSelectedMemberButton_Click(object sender, EventArgs e)
+        {
+            PersonModel person = (PersonModel) teamMembersListBox.SelectedItem;
+
+            if (person == null)
+            {
+                return;
+            }
+
+            availableTeamMembers.Add(person);
+            selectedTeamMembers.Remove(person);
         }
     }
 }

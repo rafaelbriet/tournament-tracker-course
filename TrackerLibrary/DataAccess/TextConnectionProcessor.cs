@@ -62,7 +62,7 @@ namespace TrackerLibrary.DataAccess.TextProcessing
                 model.FirstName = collumns[1];
                 model.LastName = collumns[2];
                 model.EmailAddress = collumns[3];
-                model.CellphoneNunber = collumns[4];
+                model.CellphoneNumber = collumns[4];
 
                 output.Add(model);
             }
@@ -88,7 +88,7 @@ namespace TrackerLibrary.DataAccess.TextProcessing
 
             foreach (PersonModel model in models)
             {
-                lines.Add($"{model.Id},{model.FirstName},{model.LastName},{model.EmailAddress},{model.CellphoneNunber}");
+                lines.Add($"{model.Id},{model.FirstName},{model.LastName},{model.EmailAddress},{model.CellphoneNumber}");
             }
 
             File.WriteAllLines(fileName.FullFilePath(), lines);
