@@ -11,14 +11,30 @@ namespace TrackerLibrary.DataAccess
 {
     public class SqlConnection : IDataConnection
     {
+        public PersonModel CreatePerson(PersonModel model)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("TournamentTracker")))
+            {
+                DynamicParameters parameters = new DynamicParameters();
+
+                parameters.Add("@firstName", model.FirstName);
+                parameters.Add("@lastName", model.LastName);
+                parameters.Add("@emailAddress", model.EmailAddress);
+                parameters.Add("@cellphoneNumber", model.CellphoneNunber);
+                parameters.Add("@id", 0, DbType.Int32, direction: ParameterDirection.Output);
+
+                connection.Execute("dbo.spPeople_Insert", parameters, commandType: CommandType.StoredProcedure);
+
+                model.Id = parameters.Get<int>("@id");
+
+                return model;
+            }
+        }
+
         public PrizeModel CreatePrize(PrizeModel model)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("TournamentTracker")))
             {
-                //@placeNumber int,
-                //@placeName varchar(150),
-                //@prizeAmount money,
-                //@prizePercentage float,
                 DynamicParameters parameters = new DynamicParameters();
 
                 parameters.Add("@placeNumber", model.PlaceNumber);

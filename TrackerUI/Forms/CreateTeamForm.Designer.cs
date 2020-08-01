@@ -36,15 +36,15 @@
             this.createTeamNameLabel = new System.Windows.Forms.Label();
             this.createTeamHeaderLabel = new System.Windows.Forms.Label();
             this.addNewMemberGroupBox = new System.Windows.Forms.GroupBox();
-            this.firstNameLabel = new System.Windows.Forms.Label();
-            this.firstNameTextBox = new System.Windows.Forms.TextBox();
-            this.lastNameTextBox = new System.Windows.Forms.TextBox();
-            this.lastNameLabel = new System.Windows.Forms.Label();
-            this.emailTextBox = new System.Windows.Forms.TextBox();
-            this.emailLabel = new System.Windows.Forms.Label();
+            this.createNewMemberButton = new System.Windows.Forms.Button();
             this.cellphoneNumberTextbox = new System.Windows.Forms.TextBox();
             this.cellphoneNumberLabel = new System.Windows.Forms.Label();
-            this.createNewMemberButton = new System.Windows.Forms.Button();
+            this.emailTextBox = new System.Windows.Forms.TextBox();
+            this.emailLabel = new System.Windows.Forms.Label();
+            this.lastNameTextBox = new System.Windows.Forms.TextBox();
+            this.lastNameLabel = new System.Windows.Forms.Label();
+            this.firstNameTextBox = new System.Windows.Forms.TextBox();
+            this.firstNameLabel = new System.Windows.Forms.Label();
             this.createNewTeamButton = new System.Windows.Forms.Button();
             this.addNewMemberGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -128,53 +128,15 @@
             this.addNewMemberGroupBox.TabStop = false;
             this.addNewMemberGroupBox.Text = "Add new member";
             // 
-            // firstNameLabel
+            // createNewMemberButton
             // 
-            this.firstNameLabel.AutoSize = true;
-            this.firstNameLabel.Location = new System.Drawing.Point(6, 29);
-            this.firstNameLabel.Name = "firstNameLabel";
-            this.firstNameLabel.Size = new System.Drawing.Size(54, 13);
-            this.firstNameLabel.TabIndex = 0;
-            this.firstNameLabel.Text = "Firs Name";
-            // 
-            // firstNameTextBox
-            // 
-            this.firstNameTextBox.Location = new System.Drawing.Point(67, 25);
-            this.firstNameTextBox.Name = "firstNameTextBox";
-            this.firstNameTextBox.Size = new System.Drawing.Size(241, 20);
-            this.firstNameTextBox.TabIndex = 1;
-            // 
-            // lastNameTextBox
-            // 
-            this.lastNameTextBox.Location = new System.Drawing.Point(67, 51);
-            this.lastNameTextBox.Name = "lastNameTextBox";
-            this.lastNameTextBox.Size = new System.Drawing.Size(241, 20);
-            this.lastNameTextBox.TabIndex = 3;
-            // 
-            // lastNameLabel
-            // 
-            this.lastNameLabel.AutoSize = true;
-            this.lastNameLabel.Location = new System.Drawing.Point(6, 55);
-            this.lastNameLabel.Name = "lastNameLabel";
-            this.lastNameLabel.Size = new System.Drawing.Size(58, 13);
-            this.lastNameLabel.TabIndex = 2;
-            this.lastNameLabel.Text = "Last Name";
-            // 
-            // emailTextBox
-            // 
-            this.emailTextBox.Location = new System.Drawing.Point(67, 77);
-            this.emailTextBox.Name = "emailTextBox";
-            this.emailTextBox.Size = new System.Drawing.Size(241, 20);
-            this.emailTextBox.TabIndex = 5;
-            // 
-            // emailLabel
-            // 
-            this.emailLabel.AutoSize = true;
-            this.emailLabel.Location = new System.Drawing.Point(6, 81);
-            this.emailLabel.Name = "emailLabel";
-            this.emailLabel.Size = new System.Drawing.Size(32, 13);
-            this.emailLabel.TabIndex = 4;
-            this.emailLabel.Text = "Email";
+            this.createNewMemberButton.Location = new System.Drawing.Point(101, 138);
+            this.createNewMemberButton.Name = "createNewMemberButton";
+            this.createNewMemberButton.Size = new System.Drawing.Size(116, 23);
+            this.createNewMemberButton.TabIndex = 8;
+            this.createNewMemberButton.Text = "Create Member";
+            this.createNewMemberButton.UseVisualStyleBackColor = true;
+            this.createNewMemberButton.Click += new System.EventHandler(this.createNewMemberButton_Click);
             // 
             // cellphoneNumberTextbox
             // 
@@ -192,14 +154,53 @@
             this.cellphoneNumberLabel.TabIndex = 6;
             this.cellphoneNumberLabel.Text = "Cellphone";
             // 
-            // createNewMemberButton
+            // emailTextBox
             // 
-            this.createNewMemberButton.Location = new System.Drawing.Point(101, 138);
-            this.createNewMemberButton.Name = "createNewMemberButton";
-            this.createNewMemberButton.Size = new System.Drawing.Size(116, 23);
-            this.createNewMemberButton.TabIndex = 8;
-            this.createNewMemberButton.Text = "Create Member";
-            this.createNewMemberButton.UseVisualStyleBackColor = true;
+            this.emailTextBox.Location = new System.Drawing.Point(67, 77);
+            this.emailTextBox.Name = "emailTextBox";
+            this.emailTextBox.Size = new System.Drawing.Size(241, 20);
+            this.emailTextBox.TabIndex = 5;
+            // 
+            // emailLabel
+            // 
+            this.emailLabel.AutoSize = true;
+            this.emailLabel.Location = new System.Drawing.Point(6, 81);
+            this.emailLabel.Name = "emailLabel";
+            this.emailLabel.Size = new System.Drawing.Size(32, 13);
+            this.emailLabel.TabIndex = 4;
+            this.emailLabel.Text = "Email";
+            // 
+            // lastNameTextBox
+            // 
+            this.lastNameTextBox.Location = new System.Drawing.Point(67, 51);
+            this.lastNameTextBox.Name = "lastNameTextBox";
+            this.lastNameTextBox.Size = new System.Drawing.Size(241, 20);
+            this.lastNameTextBox.TabIndex = 3;
+            // 
+            // lastNameLabel
+            // 
+            this.lastNameLabel.AutoSize = true;
+            this.lastNameLabel.Location = new System.Drawing.Point(6, 55);
+            this.lastNameLabel.Name = "lastNameLabel";
+            this.lastNameLabel.Size = new System.Drawing.Size(58, 13);
+            this.lastNameLabel.TabIndex = 2;
+            this.lastNameLabel.Text = "Last Name";
+            // 
+            // firstNameTextBox
+            // 
+            this.firstNameTextBox.Location = new System.Drawing.Point(67, 25);
+            this.firstNameTextBox.Name = "firstNameTextBox";
+            this.firstNameTextBox.Size = new System.Drawing.Size(241, 20);
+            this.firstNameTextBox.TabIndex = 1;
+            // 
+            // firstNameLabel
+            // 
+            this.firstNameLabel.AutoSize = true;
+            this.firstNameLabel.Location = new System.Drawing.Point(6, 29);
+            this.firstNameLabel.Name = "firstNameLabel";
+            this.firstNameLabel.Size = new System.Drawing.Size(54, 13);
+            this.firstNameLabel.TabIndex = 0;
+            this.firstNameLabel.Text = "Firs Name";
             // 
             // createNewTeamButton
             // 
