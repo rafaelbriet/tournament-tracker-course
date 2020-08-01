@@ -127,5 +127,47 @@ namespace TrackerUI.Forms
             availableTeamMembers.Add(person);
             selectedTeamMembers.Remove(person);
         }
+
+        private void createNewTeamButton_Click(object sender, EventArgs e)
+        {
+            string errors;
+
+            if (ValidateCreateTeamForm(out errors))
+            {
+                TeamModel team = new TeamModel();
+
+                team.TeamName = teamNameTextBox.Text;
+                team.TeamMembers = selectedTeamMembers.ToList();
+
+                GlobalConfig.Connection.CreateTeam(team);
+
+                // TODO: If we aren't closing this form after team creation, reset the form
+            }
+            else
+            {
+                MessageBox.Show(errors);
+            }
+        }
+
+        private bool ValidateCreateTeamForm(out string errors)
+        {
+            bool output = true;
+
+            errors = "";
+
+            if (teamNameTextBox.Text.Length == 0)
+            {
+                errors += "A team needs a name to be created.\n";
+                output = false;
+            }
+
+            if (selectedTeamMembers.Count == 0)
+            {
+                errors += "A team needs at least one member to be created.\n";
+                output = false;
+            }
+
+            return output;
+        }
     }
 }

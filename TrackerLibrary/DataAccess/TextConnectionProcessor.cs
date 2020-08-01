@@ -70,6 +70,33 @@ namespace TrackerLibrary.DataAccess.TextProcessing
             return output;
         }
 
+        public static List<TeamModel> ConvertToTeamModel(this List<string> lines, string peopleFileName)
+        {
+            List<TeamModel> output = new List<TeamModel>();
+            List<PersonModel> people = peopleFileName.FullFilePath().LoadFile().ConvertToPersonModel();
+
+            foreach (string line in lines)
+            {
+                string[] collumns = line.Split(',');
+
+                TeamModel model = new TeamModel();
+
+                model.Id = int.Parse(collumns[0]);
+                model.TeamName = collumns[1];
+
+                string[] membersId = collumns[2].Split('|');
+
+                foreach (string id in membersId)
+                {
+                    model.TeamMembers.Add(people.Where(x => x.Id == int.Parse(id)).First());
+                }
+
+                output.Add(model);
+            }
+
+            return output;
+        }
+
         public static void SavePrizesToFile(this List<PrizeModel> models, string fileName)
         {
             List<string> lines = new List<string>();
@@ -92,6 +119,37 @@ namespace TrackerLibrary.DataAccess.TextProcessing
             }
 
             File.WriteAllLines(fileName.FullFilePath(), lines);
+        }
+
+        public static void SaveTeamsToFile(this List<TeamModel> models, string fileName)
+        {
+            List<string> lines = new List<string>();
+
+            foreach (TeamModel model in models)
+            {
+                lines.Add($"{model.Id},{model.TeamName},{ConvertPeopleListToString(model.TeamMembers)}");
+            }
+
+            File.WriteAllLines(fileName.FullFilePath(), lines);
+        }
+
+        private static string ConvertPeopleListToString(List<PersonModel> people)
+        {
+            if (people.Count == 0)
+            {
+                return "";
+            }
+
+            string output = "";
+
+            foreach (PersonModel person in people)
+            {
+                output += $"{person.Id}|";
+            }
+
+            output = output.Substring(0, output.Length - 1);
+
+            return output;
         }
     }
 }

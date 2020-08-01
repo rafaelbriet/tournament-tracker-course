@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using TrackerLibrary.DataAccess.TextProcessing;
@@ -12,6 +13,7 @@ namespace TrackerLibrary.DataAccess
     {
         private const string PrizesFile = "PrizeModels.csv";
         private const string PeopleFile = "PersonModels.csv";
+        private const string TeamsFile = "TeamModels.csv";
 
         public PersonModel CreatePerson(PersonModel model)
         {
@@ -40,13 +42,32 @@ namespace TrackerLibrary.DataAccess
 
             if (prizes.Count > 0)
             {
-                currentId = prizes.OrderByDescending(prize => prize.Id).FirstOrDefault().Id + 1;
+                currentId = prizes.OrderByDescending(prize => prize.Id).First().Id + 1;
             }
 
             model.Id = currentId;
 
             prizes.Add(model);
             prizes.SavePrizesToFile(PrizesFile);
+
+            return model;
+        }
+
+        public TeamModel CreateTeam(TeamModel model)
+        {
+            List<TeamModel> teams = TeamsFile.FullFilePath().LoadFile().ConvertToTeamModel(PeopleFile);
+
+            int currentId = 1;
+
+            if (teams.Count > 0)
+            {
+                currentId = teams.OrderByDescending(prize => prize.Id).First().Id + 1;
+            }
+
+            model.Id = currentId;
+
+            teams.Add(model);
+            teams.SaveTeamsToFile(TeamsFile);
 
             return model;
         }
