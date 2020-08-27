@@ -37,7 +37,7 @@
             this.teamPlayersLabel = new System.Windows.Forms.Label();
             this.prizesLabel = new System.Windows.Forms.Label();
             this.selectTeamDropDown = new System.Windows.Forms.ComboBox();
-            this.teamsPlayersListBox = new System.Windows.Forms.ListBox();
+            this.tournamentTeamsListBox = new System.Windows.Forms.ListBox();
             this.addTeamButton = new System.Windows.Forms.Button();
             this.createTeamLinkLabel = new System.Windows.Forms.LinkLabel();
             this.deleteSelectedTeamPlayerButton = new System.Windows.Forms.Button();
@@ -124,13 +124,13 @@
             this.selectTeamDropDown.Size = new System.Drawing.Size(198, 21);
             this.selectTeamDropDown.TabIndex = 9;
             // 
-            // teamsPlayersListBox
+            // tournamentTeamsListBox
             // 
-            this.teamsPlayersListBox.FormattingEnabled = true;
-            this.teamsPlayersListBox.Location = new System.Drawing.Point(453, 122);
-            this.teamsPlayersListBox.Name = "teamsPlayersListBox";
-            this.teamsPlayersListBox.Size = new System.Drawing.Size(198, 95);
-            this.teamsPlayersListBox.TabIndex = 10;
+            this.tournamentTeamsListBox.FormattingEnabled = true;
+            this.tournamentTeamsListBox.Location = new System.Drawing.Point(453, 122);
+            this.tournamentTeamsListBox.Name = "tournamentTeamsListBox";
+            this.tournamentTeamsListBox.Size = new System.Drawing.Size(198, 95);
+            this.tournamentTeamsListBox.TabIndex = 10;
             // 
             // addTeamButton
             // 
@@ -140,6 +140,7 @@
             this.addTeamButton.TabIndex = 11;
             this.addTeamButton.Text = "Add team";
             this.addTeamButton.UseVisualStyleBackColor = true;
+            this.addTeamButton.Click += new System.EventHandler(this.addTeamButton_Click);
             // 
             // createTeamLinkLabel
             // 
@@ -159,6 +160,7 @@
             this.deleteSelectedTeamPlayerButton.TabIndex = 13;
             this.deleteSelectedTeamPlayerButton.Text = "Delete Selected";
             this.deleteSelectedTeamPlayerButton.UseVisualStyleBackColor = true;
+            this.deleteSelectedTeamPlayerButton.Click += new System.EventHandler(this.deleteSelectedTeamPlayerButton_Click);
             // 
             // deleteSelectedPrizeButton
             // 
@@ -207,7 +209,7 @@
             this.Controls.Add(this.deleteSelectedTeamPlayerButton);
             this.Controls.Add(this.createTeamLinkLabel);
             this.Controls.Add(this.addTeamButton);
-            this.Controls.Add(this.teamsPlayersListBox);
+            this.Controls.Add(this.tournamentTeamsListBox);
             this.Controls.Add(this.selectTeamDropDown);
             this.Controls.Add(this.prizesLabel);
             this.Controls.Add(this.teamPlayersLabel);
@@ -235,7 +237,7 @@
         private System.Windows.Forms.Label teamPlayersLabel;
         private System.Windows.Forms.Label prizesLabel;
         private System.Windows.Forms.ComboBox selectTeamDropDown;
-        private System.Windows.Forms.ListBox teamsPlayersListBox;
+        private System.Windows.Forms.ListBox tournamentTeamsListBox;
         private System.Windows.Forms.Button addTeamButton;
         private System.Windows.Forms.LinkLabel createTeamLinkLabel;
         private System.Windows.Forms.Button deleteSelectedTeamPlayerButton;
