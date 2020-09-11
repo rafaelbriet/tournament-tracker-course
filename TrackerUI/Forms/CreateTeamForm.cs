@@ -16,14 +16,16 @@ namespace TrackerUI.Forms
     {
         private BindingList<PersonModel> availableTeamMembers = new BindingList<PersonModel>(GlobalConfig.Connection.GetPerson_All());
         private BindingList<PersonModel> selectedTeamMembers = new BindingList<PersonModel>();
+        private ITeamRequester teamRequester;
 
-        public CreateTeamForm()
+        public CreateTeamForm(ITeamRequester teamRequester)
         {
             InitializeComponent();
 
             //CreateSampleData();
 
             WireUpLists();
+            this.teamRequester = teamRequester;
         }
 
         private void CreateSampleData()
@@ -141,7 +143,9 @@ namespace TrackerUI.Forms
 
                 GlobalConfig.Connection.CreateTeam(team);
 
-                // TODO: If we aren't closing this form after team creation, reset the form
+                teamRequester.TeamCreated(team);
+
+                this.Close();
             }
             else
             {
