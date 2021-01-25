@@ -116,7 +116,7 @@ namespace TrackerUI.Forms
             tournament.EnteredTeams = selectedTeams.ToList();
             tournament.Prizes = selectedPrizes.ToList();
 
-            // Create the matchups
+            TournamentLogic.CreateRounds(tournament);
 
             GlobalConfig.Connection.CreateTournament(tournament);
         }
