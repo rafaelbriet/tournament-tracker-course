@@ -8,6 +8,7 @@ namespace TrackerLibrary.Models
 {
     public class MatchupEntryModel
     {
+        public int Id { get; set; }
         public TeamModel TeamCompeting { get; set; }
         public int Score { get; set; }
         public MatchupModel ParentMatchup { get; set; }
