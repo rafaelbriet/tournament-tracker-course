@@ -50,7 +50,6 @@
             this.tournamentViewerHeaderLabel.Size = new System.Drawing.Size(118, 24);
             this.tournamentViewerHeaderLabel.TabIndex = 0;
             this.tournamentViewerHeaderLabel.Text = "Tournament:";
-            this.tournamentViewerHeaderLabel.Click += new System.EventHandler(this.tournamentViewerHeaderLabel_Click);
             // 
             // tournamentNameLabel
             // 
@@ -71,7 +70,6 @@
             this.roundsLabel.Size = new System.Drawing.Size(76, 24);
             this.roundsLabel.TabIndex = 2;
             this.roundsLabel.Text = "Rounds";
-            this.roundsLabel.Click += new System.EventHandler(this.label1_Click);
             // 
             // roundsDropDown
             // 
@@ -80,6 +78,7 @@
             this.roundsDropDown.Name = "roundsDropDown";
             this.roundsDropDown.Size = new System.Drawing.Size(214, 21);
             this.roundsDropDown.TabIndex = 3;
+            this.roundsDropDown.SelectedIndexChanged += new System.EventHandler(this.roundsDropDown_SelectedIndexChanged);
             // 
             // unplayedOnlyCheckBox
             // 
@@ -98,6 +97,7 @@
             this.matchupsListBox.Name = "matchupsListBox";
             this.matchupsListBox.Size = new System.Drawing.Size(292, 303);
             this.matchupsListBox.TabIndex = 5;
+            this.matchupsListBox.SelectedIndexChanged += new System.EventHandler(this.matchupsListBox_SelectedIndexChanged);
             // 
             // teamOneNameLabel
             // 

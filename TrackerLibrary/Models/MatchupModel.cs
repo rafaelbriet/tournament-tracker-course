@@ -13,5 +13,40 @@ namespace TrackerLibrary.Models
         public int WinnerId { get; set; }
         public TeamModel Winner { get; set; }
         public int MatchupRound { get; set; }
+        public string DisplayName
+        {
+            get
+            {
+                string output = "";
+
+                foreach (MatchupEntryModel entry in Entries)
+                {
+                    if (output.Length == 0)
+                    {
+                        if (entry.TeamCompeting == null)
+                        {
+                            output = "Not yet detemined";
+                        }
+                        else
+                        {
+                            output = entry.TeamCompeting.TeamName;
+                        }
+                    }
+                    else
+                    {
+                        if (entry.TeamCompeting == null)
+                        {
+                            output += " vs Not yet detemined";
+                        }
+                        else
+                        {
+                            output += " vs " + entry.TeamCompeting.TeamName;
+                        }
+                    }
+                }
+
+                return output;
+            }
+        }
     }
 }
