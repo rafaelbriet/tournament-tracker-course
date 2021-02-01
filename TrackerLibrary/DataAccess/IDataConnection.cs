@@ -9,10 +9,10 @@ namespace TrackerLibrary
 {
     public interface IDataConnection
     {
-        PersonModel CreatePerson(PersonModel model);
-        PrizeModel CreatePrize(PrizeModel model);
-        TeamModel CreateTeam(TeamModel model);
-        TournamentModel CreateTournament(TournamentModel model);
+        void CreatePerson(PersonModel model);
+        void CreatePrize(PrizeModel model);
+        void CreateTeam(TeamModel model);
+        void CreateTournament(TournamentModel model);
         List<TeamModel> GetTeam_All();
         List<PersonModel> GetPerson_All();
         List<TournamentModel> GetTournament_All();

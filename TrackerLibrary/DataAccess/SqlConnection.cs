@@ -13,7 +13,7 @@ namespace TrackerLibrary.DataAccess
     {
         private const string db = "TournamentTracker";
 
-        public PersonModel CreatePerson(PersonModel model)
+        public void CreatePerson(PersonModel model)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString(db)))
             {
@@ -28,12 +28,10 @@ namespace TrackerLibrary.DataAccess
                 connection.Execute("dbo.spPeople_Insert", parameters, commandType: CommandType.StoredProcedure);
 
                 model.Id = parameters.Get<int>("@id");
-
-                return model;
             }
         }
 
-        public PrizeModel CreatePrize(PrizeModel model)
+        public void CreatePrize(PrizeModel model)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString(db)))
             {
@@ -48,12 +46,10 @@ namespace TrackerLibrary.DataAccess
                 connection.Execute("dbo.spPrizes_Insert", parameters, commandType: CommandType.StoredProcedure);
 
                 model.Id = parameters.Get<int>("@id");
-
-                return model;
             }
         }
 
-        public TeamModel CreateTeam(TeamModel model)
+        public void CreateTeam(TeamModel model)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString(db)))
             {
@@ -75,12 +71,10 @@ namespace TrackerLibrary.DataAccess
 
                     connection.Execute("dbo.spTeamMembers_Insert", parameters, commandType: CommandType.StoredProcedure);
                 }
-
-                return model;
             }
         }
 
-        public TournamentModel CreateTournament(TournamentModel model)
+        public void CreateTournament(TournamentModel model)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString(db)))
             {
@@ -88,8 +82,6 @@ namespace TrackerLibrary.DataAccess
                 SaveTournamentPrize(connection, model);
                 SaveTournamentEntris(connection, model);
                 SaveTournamentRounds(connection, model);
-
-                return model;
             }
         }
 

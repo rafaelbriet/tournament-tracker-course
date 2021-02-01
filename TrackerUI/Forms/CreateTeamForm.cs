@@ -62,7 +62,7 @@ namespace TrackerUI.Forms
                 model.EmailAddress = emailTextBox.Text;
                 model.CellphoneNumber = cellphoneNumberTextbox.Text;
 
-                model = GlobalConfig.Connection.CreatePerson(model);
+                GlobalConfig.Connection.CreatePerson(model);
 
                 selectedTeamMembers.Add(model);
 

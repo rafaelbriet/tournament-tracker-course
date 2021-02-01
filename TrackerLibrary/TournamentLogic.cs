@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,93 @@ namespace TrackerLibrary
 
             tournament.Rounds.Add(CreateFirstRound(randomizedTeams, byes));
             CreateOtherRounds(tournament, rounds);
+        }
+
+        public static void UpdateTournamentResults(TournamentModel tournament)
+        {
+            List<MatchupModel> matchupsToUpdate = new List<MatchupModel>();
+
+            foreach (List<MatchupModel> matchups in tournament.Rounds)
+            {
+                foreach (MatchupModel matchup in matchups)
+                {
+                    if (matchup.Winner == null && (matchup.Entries.Any(entry => entry.Score != 0) || matchup.Entries.Count == 1))
+                    {
+                        matchupsToUpdate.Add(matchup);
+                    }
+                }
+            }
+
+            MarkMatchupWinner(matchupsToUpdate);
+            AdvanceWinnersToNextRound(matchupsToUpdate, tournament);
+
+            matchupsToUpdate.ForEach(matchup => GlobalConfig.Connection.UpdateMatchup(matchup));
+        }
+
+        private static void AdvanceWinnersToNextRound(List<MatchupModel> matchupsToUpdate, TournamentModel tournament)
+        {
+            foreach (MatchupModel selectedMatchup in matchupsToUpdate)
+            {
+                foreach (List<MatchupModel> matchups in tournament.Rounds)
+                {
+                    foreach (MatchupModel matchup in matchups)
+                    {
+                        foreach (MatchupEntryModel entry in matchup.Entries)
+                        {
+                            if (entry.ParentMatchup != null && entry.ParentMatchup.Id == selectedMatchup.Id)
+                            {
+                                entry.TeamCompeting = selectedMatchup.Winner;
+                                GlobalConfig.Connection.UpdateMatchup(matchup);
+                            }
+                        }
+                    }
+                } 
+            }
+        }
+
+        private static void MarkMatchupWinner(List<MatchupModel> matchupsToUpdate)
+        {
+            string greaterWins = ConfigurationManager.AppSettings["greaterWins"];
+
+            foreach (MatchupModel matchup in matchupsToUpdate)
+            {
+                if (matchup.Entries.Count == 1)
+                {
+                    matchup.Winner = matchup.Entries[0].TeamCompeting;
+                    continue;
+                }
+
+                if (greaterWins == "1")
+                {
+                    if (matchup.Entries[0].Score > matchup.Entries[1].Score)
+                    {
+                        matchup.Winner = matchup.Entries[0].TeamCompeting;
+                    }
+                    else if (matchup.Entries[1].Score > matchup.Entries[0].Score)
+                    {
+                        matchup.Winner = matchup.Entries[1].TeamCompeting;
+                    }
+                    else
+                    {
+                        throw new Exception("This application does not handle ties");
+                    }
+                }
+                else
+                {
+                    if (matchup.Entries[0].Score < matchup.Entries[1].Score)
+                    {
+                        matchup.Winner = matchup.Entries[0].TeamCompeting;
+                    }
+                    else if (matchup.Entries[1].Score < matchup.Entries[0].Score)
+                    {
+                        matchup.Winner = matchup.Entries[1].TeamCompeting;
+                    }
+                    else
+                    {
+                        throw new Exception("This application does not handle ties");
+                    }
+                }
+            }
         }
 
         private static void CreateOtherRounds(TournamentModel tournament, int numberOfRounds)
