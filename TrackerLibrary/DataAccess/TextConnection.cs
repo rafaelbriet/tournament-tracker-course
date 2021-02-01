@@ -109,5 +109,10 @@ namespace TrackerLibrary.DataAccess
         {
             return GlobalConfig.TournamentFile.FullFilePath().LoadFile().ConvertToTournamentModel(GlobalConfig.TeamsFile, GlobalConfig.PeopleFile, GlobalConfig.PrizesFile);
         }
+
+        public void UpdateMatchup(MatchupModel model)
+        {
+            model.UpdateMatchupFile();
+        }
     }
 }

@@ -39,6 +39,8 @@
             this.teamOneScoreTextBox = new System.Windows.Forms.TextBox();
             this.teamTwoScoreTextBox = new System.Windows.Forms.TextBox();
             this.scoreButton = new System.Windows.Forms.Button();
+            this.matchupEntryPanel = new System.Windows.Forms.Panel();
+            this.matchupEntryPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // tournamentViewerHeaderLabel
@@ -89,6 +91,7 @@
             this.unplayedOnlyCheckBox.TabIndex = 4;
             this.unplayedOnlyCheckBox.Text = "Show only unplayed";
             this.unplayedOnlyCheckBox.UseVisualStyleBackColor = true;
+            this.unplayedOnlyCheckBox.CheckedChanged += new System.EventHandler(this.unplayedOnlyCheckBox_CheckedChanged);
             // 
             // matchupsListBox
             // 
@@ -103,7 +106,7 @@
             // 
             this.teamOneNameLabel.AutoSize = true;
             this.teamOneNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.teamOneNameLabel.Location = new System.Drawing.Point(335, 124);
+            this.teamOneNameLabel.Location = new System.Drawing.Point(3, 3);
             this.teamOneNameLabel.Name = "teamOneNameLabel";
             this.teamOneNameLabel.Size = new System.Drawing.Size(164, 24);
             this.teamOneNameLabel.TabIndex = 6;
@@ -113,7 +116,7 @@
             // 
             this.teamTwoNameLabel.AutoSize = true;
             this.teamTwoNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.teamTwoNameLabel.Location = new System.Drawing.Point(335, 205);
+            this.teamTwoNameLabel.Location = new System.Drawing.Point(3, 84);
             this.teamTwoNameLabel.Name = "teamTwoNameLabel";
             this.teamTwoNameLabel.Size = new System.Drawing.Size(160, 24);
             this.teamTwoNameLabel.TabIndex = 7;
@@ -121,37 +124,46 @@
             // 
             // teamOneScoreTextBox
             // 
-            this.teamOneScoreTextBox.Location = new System.Drawing.Point(335, 156);
+            this.teamOneScoreTextBox.Location = new System.Drawing.Point(6, 35);
             this.teamOneScoreTextBox.Name = "teamOneScoreTextBox";
             this.teamOneScoreTextBox.Size = new System.Drawing.Size(100, 20);
             this.teamOneScoreTextBox.TabIndex = 8;
             // 
             // teamTwoScoreTextBox
             // 
-            this.teamTwoScoreTextBox.Location = new System.Drawing.Point(335, 234);
+            this.teamTwoScoreTextBox.Location = new System.Drawing.Point(6, 113);
             this.teamTwoScoreTextBox.Name = "teamTwoScoreTextBox";
             this.teamTwoScoreTextBox.Size = new System.Drawing.Size(100, 20);
             this.teamTwoScoreTextBox.TabIndex = 9;
             // 
             // scoreButton
             // 
-            this.scoreButton.Location = new System.Drawing.Point(335, 296);
+            this.scoreButton.Location = new System.Drawing.Point(5, 175);
             this.scoreButton.Name = "scoreButton";
             this.scoreButton.Size = new System.Drawing.Size(75, 23);
             this.scoreButton.TabIndex = 10;
             this.scoreButton.Text = "Score";
             this.scoreButton.UseVisualStyleBackColor = true;
+            this.scoreButton.Click += new System.EventHandler(this.scoreButton_Click);
+            // 
+            // matchupEntryPanel
+            // 
+            this.matchupEntryPanel.Controls.Add(this.teamTwoScoreTextBox);
+            this.matchupEntryPanel.Controls.Add(this.scoreButton);
+            this.matchupEntryPanel.Controls.Add(this.teamOneNameLabel);
+            this.matchupEntryPanel.Controls.Add(this.teamTwoNameLabel);
+            this.matchupEntryPanel.Controls.Add(this.teamOneScoreTextBox);
+            this.matchupEntryPanel.Location = new System.Drawing.Point(325, 118);
+            this.matchupEntryPanel.Name = "matchupEntryPanel";
+            this.matchupEntryPanel.Size = new System.Drawing.Size(495, 312);
+            this.matchupEntryPanel.TabIndex = 11;
             // 
             // TournamentViewerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 450);
-            this.Controls.Add(this.scoreButton);
-            this.Controls.Add(this.teamTwoScoreTextBox);
-            this.Controls.Add(this.teamOneScoreTextBox);
-            this.Controls.Add(this.teamTwoNameLabel);
-            this.Controls.Add(this.teamOneNameLabel);
+            this.ClientSize = new System.Drawing.Size(834, 450);
+            this.Controls.Add(this.matchupEntryPanel);
             this.Controls.Add(this.matchupsListBox);
             this.Controls.Add(this.unplayedOnlyCheckBox);
             this.Controls.Add(this.roundsDropDown);
@@ -160,6 +172,8 @@
             this.Controls.Add(this.tournamentViewerHeaderLabel);
             this.Name = "TournamentViewerForm";
             this.Text = "Tournament Viewer";
+            this.matchupEntryPanel.ResumeLayout(false);
+            this.matchupEntryPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,6 +192,7 @@
         private System.Windows.Forms.TextBox teamOneScoreTextBox;
         private System.Windows.Forms.TextBox teamTwoScoreTextBox;
         private System.Windows.Forms.Button scoreButton;
+        private System.Windows.Forms.Panel matchupEntryPanel;
     }
 }
 
