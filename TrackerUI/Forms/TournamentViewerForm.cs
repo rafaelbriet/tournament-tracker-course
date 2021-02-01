@@ -146,8 +146,39 @@ namespace TrackerUI.Forms
             LoadMatchupEntry();
         }
 
+        private string ValidateData()
+        {
+            string output = "";
+
+            bool isScoreOneValid = int.TryParse(teamOneScoreTextBox.Text, out int scoreOne);
+            bool isScoreTwoValid = int.TryParse(teamTwoScoreTextBox.Text, out int scoreTwo);
+
+            if (isScoreOneValid == false)
+            {
+                output = "Please enter a valid number for team one score.";
+            }
+            else if (isScoreTwoValid == false)
+            {
+                output = "Please enter a valid number for team two score.";
+            }
+            else if (scoreOne == scoreTwo)
+            {
+                output = "This tournament does not allow ties.";
+            }
+
+            return output;
+        }
+
         private void scoreButton_Click(object sender, EventArgs e)
         {
+            string errorMessage = ValidateData();
+
+            if (errorMessage.Length > 0)
+            {
+                MessageBox.Show(errorMessage);
+                return;
+            }
+
             MatchupModel selectedMatchup = (MatchupModel)matchupsListBox.SelectedItem;
 
             if (selectedMatchup == null)
@@ -155,16 +186,13 @@ namespace TrackerUI.Forms
                 return;
             }
 
-            int teamOneScore = 0;
-            int teamTwoScore = 0;
-
             for (int i = 0; i < selectedMatchup.Entries.Count; i++)
             {
                 if (i == 0)
                 {
                     if (selectedMatchup.Entries[i].TeamCompeting != null)
                     {
-                        bool isScoreValid = int.TryParse(teamOneScoreTextBox.Text, out teamOneScore);
+                        bool isScoreValid = int.TryParse(teamOneScoreTextBox.Text, out int teamOneScore);
 
                         if (isScoreValid && teamOneScore >= 0)
                         {
@@ -181,7 +209,7 @@ namespace TrackerUI.Forms
                 {
                     if (selectedMatchup.Entries[i].TeamCompeting != null)
                     {
-                        bool isScoreValid = int.TryParse(teamTwoScoreTextBox.Text, out teamTwoScore);
+                        bool isScoreValid = int.TryParse(teamTwoScoreTextBox.Text, out int teamTwoScore);
 
                         if (isScoreValid && teamTwoScore >= 0)
                         {
@@ -196,7 +224,15 @@ namespace TrackerUI.Forms
                 }
             }
 
-            TournamentLogic.UpdateTournamentResults(tournament);
+            try
+            {
+                TournamentLogic.UpdateTournamentResults(tournament);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show($"An error occurred in the application: {exception.Message}");
+                return;
+            }
 
             if (unplayedOnlyCheckBox.Checked)
             {
