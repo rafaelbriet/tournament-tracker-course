@@ -28,7 +28,7 @@ namespace TrackerLibrary
             {
                 foreach (MatchupModel matchup in matchups)
                 {
-                    if (matchup.Winner == null && (matchup.Entries.Any(entry => entry.Score != 0) || matchup.Entries.Count == 1))
+                    if (matchup.Entries.Any(entry => entry.Score != 0) || matchup.Entries.Count == 1)
                     {
                         matchupsToUpdate.Add(matchup);
                     }
