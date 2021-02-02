@@ -122,6 +122,8 @@ namespace TrackerUI.Forms
 
             TournamentLogic.UpdateTournamentResults(tournament);
 
+            tournament.AlertNewRound();
+
             TournamentViewerForm tournamentViewerForm = new TournamentViewerForm(tournament);
             tournamentViewerForm.Show();
             Close();

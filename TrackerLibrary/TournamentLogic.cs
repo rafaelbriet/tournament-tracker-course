@@ -22,6 +22,8 @@ namespace TrackerLibrary
 
         public static void UpdateTournamentResults(TournamentModel tournament)
         {
+            int startingRound = tournament.GetCurrentRoundNumber();
+
             List<MatchupModel> matchupsToUpdate = new List<MatchupModel>();
 
             foreach (List<MatchupModel> matchups in tournament.Rounds)
@@ -39,6 +41,28 @@ namespace TrackerLibrary
             AdvanceWinnersToNextRound(matchupsToUpdate, tournament);
 
             matchupsToUpdate.ForEach(matchup => GlobalConfig.Connection.UpdateMatchup(matchup));
+
+            int endingRound = tournament.GetCurrentRoundNumber();
+
+            if (endingRound > startingRound)
+            {
+                tournament.AlertNewRound();
+            }
+        }
+
+        public static int GetCurrentRoundNumber(this TournamentModel tournament)
+        {
+            int output = 1;
+
+            foreach (List<MatchupModel> round in tournament.Rounds)
+            {
+                if (round.All(matchup => matchup.Winner != null))
+                {
+                    output++;
+                }
+            }
+
+            return output;
         }
 
         private static void AdvanceWinnersToNextRound(List<MatchupModel> matchupsToUpdate, TournamentModel tournament)
